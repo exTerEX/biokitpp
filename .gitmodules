@@ -1,0 +1,5 @@
+[submodule "cmake-tools"]
+	path = cmake/cmake-tools
+	url = ../cmake-tools.git
+	fetchRecurseSubmodules = on-demand
+	branch = main
