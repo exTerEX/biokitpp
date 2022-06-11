@@ -1,4 +1,4 @@
-#include "bio/utils/trim.hpp"
+#include "trim.hpp"
 #include <algorithm>
 #include <iostream>
 
