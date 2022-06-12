@@ -11,12 +11,13 @@ Necessary libraries and tools to build project.
 
 - [Clang 5.0+](https://clang.llvm.org/)
 - [CMake 3.8+](https://cmake.org/)
-- [doxygen](https://doxygen.nl/)
+- [Doxygen](https://doxygen.nl/)
 
 ### Develop
 
 Tools that are necessary (or highly suggested) to develop and correct mistakes in this project.
 
+- [Boost 1.21+](https://www.boost.org/)
 - [clang-format](https://clang.llvm.org/docs/ClangFormat.html) - Auto-formatter for C/C++ files
 - [clang-tidy](https://clang.llvm.org/extra/clang-tidy) - Linting for C/C++ files to keep
     convention and best practices
