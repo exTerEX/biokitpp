@@ -11,6 +11,7 @@ Necessary libraries and tools to build project.
 
 - [Clang 5.0+](https://clang.llvm.org/)
 - [CMake 3.8+](https://cmake.org/)
+- [doxygen](https://doxygen.nl/)
 
 ### Develop
 
