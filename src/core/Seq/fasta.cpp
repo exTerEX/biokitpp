@@ -18,17 +18,17 @@ namespace bio::seq {
 
 Fasta::Fasta() = default;
 
-Fasta::Fasta(fasta_block_t __x) {
+Fasta::Fasta(const fasta_block_t& __x) {
   this->m_size = 1;
   this->m_content.push_back(__x);
 }
 
-Fasta::Fasta(std::vector<fasta_block_t> __x) {
+Fasta::Fasta(const std::vector<fasta_block_t>& __x) {
   this->m_size = __x.size();
   this->m_content = __x;
 }
 
-Fasta& Fasta::operator=(fasta_block_t& __rhs) {
+auto Fasta::operator=(fasta_block_t& __rhs) -> Fasta& {
   this->m_size = 1;
 
   // Remove content if present
@@ -41,7 +41,7 @@ Fasta& Fasta::operator=(fasta_block_t& __rhs) {
   return *this;
 }
 
-Fasta& Fasta::operator=(std::vector<fasta_block_t>& __rhs) {
+auto Fasta::operator=(std::vector<fasta_block_t>& __rhs) -> Fasta& {
   this->m_size = __rhs.size();
 
   this->m_content = __rhs;
@@ -49,75 +49,63 @@ Fasta& Fasta::operator=(std::vector<fasta_block_t>& __rhs) {
   return *this;
 }
 
-Fasta::Fasta(const Fasta&) = default;
+Fasta::Fasta(const Fasta& __x) = default;
 
-// TODO: Define
-Fasta& Fasta::operator=(const Fasta& __rhs) { return *this; };
+auto Fasta::operator=(const Fasta& __rhs) -> Fasta& = default;
 
-Fasta::Fasta(Fasta&&) = default;
+Fasta::Fasta(Fasta&& __x) noexcept = default;
 
-// TODO: Define
-Fasta& Fasta::operator=(Fasta&&) { return *this; }
+auto Fasta::operator=(Fasta&& __rhs) noexcept -> Fasta& = default;
 
 Fasta::~Fasta() = default;
 
-// TODO: Define
-std::vector<fasta_block_t>::iterator Fasta::begin() noexcept {
-  return std::vector<fasta_block_t>::iterator();
+auto Fasta::begin() noexcept -> std::vector<fasta_block_t>::iterator {
+  return this->m_content.begin();
 }
 
-// TODO: Define
-std::vector<fasta_block_t>::iterator Fasta::end() noexcept {
-  return std::vector<fasta_block_t>::iterator();
-}
+auto Fasta::end() noexcept -> std::vector<fasta_block_t>::iterator { return this->m_content.end(); }
 
-uint Fasta::size() const noexcept { return this->m_size; }
+auto Fasta::size() const noexcept -> uint { return this->m_size; }
 
-bool Fasta::empty() const noexcept {
-  if (this->m_size == 0) {
-    return true;
-  }
+auto Fasta::empty() const noexcept -> bool { return this->m_size == 0; }
 
-  return false;
-}
+auto Fasta::operator[](uint __n) -> fasta_block_t { return this->at(__n); }
 
-fasta_block_t Fasta::operator[](uint __n) { return this->at(__n); }
+auto Fasta::at(uint __n) -> fasta_block_t { return this->m_content[__n]; }
 
-fasta_block_t Fasta::at(uint __n) { return this->m_content[__n]; }
+auto Fasta::data() noexcept -> std::vector<fasta_block_t> { return this->m_content; }
 
-std::vector<fasta_block_t> Fasta::data() noexcept { return this->m_content; }
-
-void Fasta::insert(uint __n, const fasta_block_t& __x) {
+auto Fasta::insert(uint __n, const fasta_block_t& __x) -> void {
   this->m_size += 1;
   this->m_content.assign(__n, __x);
 }
 
-void Fasta::insert(uint __n, const Fasta& __x) {
+auto Fasta::insert(uint __n, const Fasta& __x) -> void {
   for (const auto& element : __x.m_content) {
     this->m_content.assign(__n, element);
     __n++;
   }
 }
 
-void Fasta::append(const fasta_block_t& __x) {
+auto Fasta::append(const fasta_block_t& __x) -> void {
   this->m_size += 1;
   this->m_content.push_back(__x);
 }
 
-void Fasta::append(const Fasta& __x) {
+auto Fasta::append(const Fasta& __x) -> void {
   for (const auto& element : __x.m_content) {
     this->m_content.push_back(element);
   }
 }
 
-Fasta& Fasta::operator+=(const Fasta& __rhs) {
+auto Fasta::operator+=(const Fasta& __rhs) -> Fasta& {
   this->append(__rhs);
   return *this;
 }
 
-void Fasta::clear() noexcept { this->m_content.clear(); }
+auto Fasta::clear() noexcept -> void { this->m_content.clear(); }
 
-bool Fasta::operator==(Fasta *__rhs) const {
+auto Fasta::operator==(Fasta *__rhs) const -> bool {
   if (this->m_content.size() != __rhs->m_content.size()) {
     return false;
   }
@@ -138,8 +126,8 @@ bool Fasta::operator==(Fasta *__rhs) const {
   return true;
 }
 
-bool Fasta::operator!=(Fasta *__rhs) const { return !(this == __rhs); }
+auto Fasta::operator!=(Fasta *__rhs) const -> bool { return !(this == __rhs); }
 
-void Fasta::shrink_to_fit() { this->m_content.shrink_to_fit(); }
+auto Fasta::shrink_to_fit() -> void { this->m_content.shrink_to_fit(); }
 
 } // namespace bio::seq

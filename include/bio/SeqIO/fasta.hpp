@@ -23,9 +23,11 @@ namespace bio::io {
 
 auto read_fasta(std::stringstream&) -> bio::seq::fasta_t;
 auto read_fasta(std::fstream&) -> bio::seq::fasta_t;
+// FIXME: Consider char* instead of std::string
 auto read_fasta(std::string) -> bio::seq::fasta_t;
 
-auto encode_fasta(bio::seq::fasta_t, char) -> std::stringstream;
+auto encode_fasta(bio::seq::fasta_t&, char) -> std::stringstream;
+// FIXME: Consider char* instead of std::string
 auto write_fasta(std::string, bio::seq::fasta_t, char) -> void;
 
 } // namespace bio::io

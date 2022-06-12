@@ -3,7 +3,7 @@
 #ifndef _TRIM_HPP
 #define _TRIM_HPP
 
-std::string& ltrim(std::string&);
-std::string& rtrim(std::string&);
+auto ltrim(std::string& __s) -> std::string&;
+auto rtrim(std::string& __s) -> std::string&;
 
 #endif

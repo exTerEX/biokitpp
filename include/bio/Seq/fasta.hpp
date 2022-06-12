@@ -37,18 +37,18 @@ public:
   Fasta();
 
   // --- fill
-  Fasta(fasta_block_t);
-  Fasta(std::vector<fasta_block_t>);
-  auto operator=(fasta_block_t&) -> Fasta&;
-  auto operator=(std::vector<fasta_block_t>&) -> Fasta&;
+  Fasta(const fasta_block_t& __x);
+  Fasta(const std::vector<fasta_block_t>& __x);
+  auto operator=(fasta_block_t& __rhs) -> Fasta&;
+  auto operator=(std::vector<fasta_block_t>& __rhs) -> Fasta&;
 
   // --- copy
-  Fasta(const Fasta&);
-  auto operator=(const Fasta&) -> Fasta&;
+  Fasta(const Fasta& __x);
+  auto operator=(const Fasta& __rhs) -> Fasta&;
 
   // --- move
-  Fasta(Fasta&&);
-  auto operator=(Fasta&&) -> Fasta&;
+  Fasta(Fasta&& __x) noexcept;
+  auto operator=(Fasta&& __rhs) noexcept -> Fasta&;
 
   // --- destructor
   ~Fasta();
@@ -58,30 +58,30 @@ public:
   auto end() noexcept -> std::vector<fasta_block_t>::iterator;
 
   // --- capacity
-  auto size() const noexcept -> uint;
-  auto empty() const noexcept -> bool;
+  [[nodiscard]] auto size() const noexcept -> uint;
+  [[nodiscard]] auto empty() const noexcept -> bool;
 
   // --- element access
-  auto operator[](uint) -> fasta_block_t;
-  auto at(uint) -> fasta_block_t;
+  auto operator[](uint __n) -> fasta_block_t;
+  auto at(uint __n) -> fasta_block_t;
   auto data() noexcept -> std::vector<fasta_block_t>;
 
   // --- modifiers
-  auto insert(uint, const fasta_block_t&) -> void;
-  auto insert(uint, const Fasta&) -> void;
+  auto insert(uint __n, const fasta_block_t& __x) -> void;
+  auto insert(uint __n, const Fasta& __x) -> void;
 
-  auto append(const fasta_block_t&) -> void;
-  auto append(const Fasta&) -> void;
+  auto append(const fasta_block_t& __x) -> void;
+  auto append(const Fasta& __x) -> void;
 
-  auto operator+=(const Fasta&) -> Fasta&;
+  auto operator+=(const Fasta& __rhs) -> Fasta&;
 
   auto clear() noexcept -> void;
 
   auto shrink_to_fit() -> void;
 
   // --- Operations
-  auto operator==(Fasta *) const -> bool;
-  auto operator!=(Fasta *) const -> bool;
+  auto operator==(Fasta *__rhs) const -> bool;
+  auto operator!=(Fasta *__rhs) const -> bool;
 };
 
 } // namespace bio::seq
