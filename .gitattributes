@@ -1,10 +1,10 @@
 * text=auto
 
 # Documents
-*.bibtex    text diff=bibtex
-*.docx      diff=astextplain
-*.DOCX      diff=astextplain
-*.md        text diff=markdown
+*.bibtex    text    diff=bibtex
+*.docx      binary  diff=astextplain
+*.DOCX      binary  diff=astextplain
+*.md        text    diff=markdown
 
 # Graphics
 *.png   binary
@@ -23,8 +23,8 @@
 *.tsv   text
 *.txt   text
 *.sql   text
-*.xlsx  diff=astextplain
-*.XLSX  diff=astextplain
+*.xlsx  binary  diff=astextplain
+*.XLSX  binary  diff=astextplain
 
 # Scripts
 *.bash  text eol=lf
@@ -92,3 +92,7 @@
 *.exe   binary
 *.out   binary
 *.app   binary
+
+### Configurations
+.clang-format   linguist-detectable
+.clang-tidy     linguist-detectable
