@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.9)
 
-enable_testing()
+if(${CMAKE_VERSION} VERSION_LESS 3.23)
+  cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+else()
+  cmake_policy(VERSION 3.23)
+endif()
 
 include(cmake/cmake-tools/Tools.cmake)
 
@@ -16,12 +20,12 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_subdirectory(src)
 
+enable_testing()
+
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   include(CTest)
 
   if(BUILD_TESTING)
-    add_subdirectory(tests)
+    add_subdirectory(test)
   endif()
-
-  set(CMAKE_CXX_CLANG_TIDY clang-tidy --fix)
 endif()
