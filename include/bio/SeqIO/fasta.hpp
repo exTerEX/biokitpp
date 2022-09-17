@@ -26,9 +26,9 @@ auto read_fasta(std::fstream&) -> bio::seq::fasta_t;
 // FIXME: Consider char* instead of std::string
 auto read_fasta(std::string) -> bio::seq::fasta_t;
 
-auto encode_fasta(bio::seq::fasta_t&, char = '\n') -> std::stringstream;
+auto encode_fasta(bio::seq::fasta_t&, char = '\n', const int = 80) -> std::stringstream;
 // FIXME: Consider char* instead of std::string
-auto write_fasta(std::string, bio::seq::fasta_t, char = '\n') -> void;
+auto write_fasta(std::string, bio::seq::fasta_t, char = '\n', const int = 80) -> void;
 
 } // namespace bio::io
 

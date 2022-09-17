@@ -101,12 +101,13 @@ auto read_fasta(const std::string __fp) -> bio::seq::fasta_t {
   return read_fasta(stream);
 }
 
-auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol) -> std::stringstream {
+auto encode_fasta(bio::seq::fasta_t& __fas, const char eol, const int linewidth)
+    -> std::stringstream {
   std::stringstream file_content;
 
   for (const auto& block : __fas) {
     // Add header
-    std::string header = "> " + block.m_header + __eol;
+    std::string header = "> " + block.m_header + eol;
     file_content.write(header.c_str(), header.size());
 
     // Add comment
@@ -117,14 +118,14 @@ auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol) -> std::stringstre
         comment += block.m_comment[index];
 
         // Newline if 80 characters long line
-        if (!index % 77) {
-          comment += __eol;
+        if (!index % linewidth - 3) {
+          comment += eol;
           file_content.write(comment.c_str(), comment.size());
           comment = "; ";
         }
       }
 
-      comment += __eol;
+      comment += eol;
       file_content.write(comment.c_str(), comment.size());
     }
 
@@ -136,22 +137,23 @@ auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol) -> std::stringstre
 
       // Newline if 80 characters long line
       if (!index % 79) {
-        sequence += __eol;
+        sequence += eol;
         file_content.write(sequence.c_str(), sequence.size());
       }
 
-      sequence += __eol;
+      sequence += eol;
       file_content.write(sequence.c_str(), sequence.size());
     }
 
-    file_content.put(__eol);
+    file_content.put(eol);
   }
 
   return file_content;
 }
 
-auto write_fasta(const std::string __fn, bio::seq::fasta_t __fas, const char __eol) -> void {
-  std::stringstream file_content = encode_fasta(__fas, __eol);
+auto write_fasta(const std::string __fn, bio::seq::fasta_t __fas, const char eol,
+                 const int linewidth) -> void {
+  std::stringstream file_content = encode_fasta(__fas, eol, linewidth);
 
   std::ofstream file(__fn);
   file << file_content.rdbuf();
