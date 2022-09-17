@@ -6,6 +6,10 @@ else()
   cmake_policy(VERSION 3.23)
 endif()
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 include(cmake/cmake-tools/Tools.cmake)
 
 version_from_git()
