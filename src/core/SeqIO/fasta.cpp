@@ -101,7 +101,7 @@ auto read_fasta(const std::string __fp) -> bio::seq::fasta_t {
   return read_fasta(stream);
 }
 
-auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol = '\n') -> std::stringstream {
+auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol) -> std::stringstream {
   std::stringstream file_content;
 
   for (const auto& block : __fas) {
@@ -150,7 +150,7 @@ auto encode_fasta(bio::seq::fasta_t& __fas, const char __eol = '\n') -> std::str
   return file_content;
 }
 
-auto write_fasta(const std::string __fn, bio::seq::fasta_t __fas, const char __eol = '\n') -> void {
+auto write_fasta(const std::string __fn, bio::seq::fasta_t __fas, const char __eol) -> void {
   std::stringstream file_content = encode_fasta(__fas, __eol);
 
   std::ofstream file(__fn);
